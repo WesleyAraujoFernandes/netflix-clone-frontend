@@ -1,1 +1,78 @@
-<p>landing works!</p>
+<div class="landing-container">
+  <div class="bg"></div>
+  <mat-toolbar class="topbar" color="transparent">
+    <div class="logo">
+      <mat-icon class="logo-icon">movie</mat-icon>
+      <span class="logo-text">PulseScreen</span>
+    </div>
+    <span class="spacer"></span>
+    <button mat-flat-button class="signin-btn" (click)="login()">Sign In</button>
+  </mat-toolbar>
+  <section class="hero">
+    <h1 class="hero-title">
+      Unlimited movies, TV<br class="br-md"> shows and more
+    </h1>
+    <p class="hero-caption">
+      Ready to watch? Enter your email to get started.
+    </p>
+    <form [formGroup]="landingForm" class="cta" (ngSubmit)="getStarted()" novalidate>
+      <mat-form-field appearance="outline" class="email-field">
+        <mat-label>Email address</mat-label>
+        <input type="email" matInput formControlName="email">
+        <mat-icon matPrefix>email</mat-icon>
+        @if (landingForm.get('email')?.hasError('required')) {
+        <mat-error class="error">Email is required</mat-error>
+        } @else if (landingForm.get('email')?.hasError('email')) {
+        <mat-error class="error">Enter a valid email</mat-error>
+        }
+      </mat-form-field>
+      <button type="submit" class="cta-btn" mat-flat-button>
+        Get Started
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </form>
+  </section>
+</div>
+<section class="reasons-wrap">
+  <h2 class="row-title"> More reasons to join</h2>
+  <div class="reason-grid">
+    @for(reason of reasons; track reason.title) {
+    <mat-card class="reason-card">
+      <h3>{{reason.title}}</h3>
+      <p>{{reason.text}}</p>
+      <div class="badge">
+        <mat-icon>{{reason.icon}}</mat-icon>
+      </div>
+    </mat-card>
+    }
+  </div>
+</section>
+<section class="faq">
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+  <mat-accordion class="faq-accordion" multi>
+    @for(faq of faqs; track faq.question) {
+    <mat-expansion-panel class="faq-item" [hideToggle]="true" #panel="matExpansionPanel">
+      <mat-expansion-panel-header>
+        <span class="question">{{faq.question}}</span>
+        <span class="spacer"></span>
+        @if(!panel.expanded) {
+        <mat-icon class="toggle-icon">add</mat-icon>
+        } @else {
+        <mat-icon class="toggle-icon">close</mat-icon>
+        }
+      </mat-expansion-panel-header>
+      <p class="answer">{{faq.answer}}</p>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+</section>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>&copy; {{year}} PulseScreen. All Rights Reserved</span>
+    <nav class="footer-links">
+      <a href="#">Help Center</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy</a>
+    </nav>
+  </div>
+</footer>
