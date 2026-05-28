@@ -1,1 +1,13 @@
-<p>login works!</p>
+<div class="auth-page">
+  <div class="bg"></div>
+  <div class="logo">
+    <mat-icon class="logo-icon">movie</mat-icon>
+    <span class="logo-text">PulseScreen</span>
+  </div>
+  <mat-card class="auth-card" appearance="outlined">
+    <h1>Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()" class="form">
+
+    </form>
+  </mat-card>
+</div>
