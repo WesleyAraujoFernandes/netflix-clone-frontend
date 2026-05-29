@@ -17,6 +17,8 @@ export class Login implements OnInit {
   loading = false;
   showResendLink = false;
   userEmail = '';
+  hidePassword = true;
+  hideConfirmPassword = true;
 
   constructor(
     private fb: FormBuilder,
