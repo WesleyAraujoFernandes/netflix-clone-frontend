@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { inject, NgModule, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
@@ -11,25 +11,31 @@ import { Login } from './login/login';
 import { VerifyEmail } from './verify-email/verify-email';
 import { Home } from './user/home/home';
 import { authInterceptor } from './shared/interceptors/auth-interceptor';
+import { AuthService } from './shared/services/auth-service';
+import { ResetPassword } from './reset-password/reset-password';
 
 @NgModule({
-  declarations: [
-    App,
-    Landing,
-    Signup,
-    Login,
-    VerifyEmail,
-    Home
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([authInterceptor]))
-  ],
-  bootstrap: [App]
+    declarations: [
+        App,
+        Landing,
+        Signup,
+        Login,
+        VerifyEmail,
+        Home,
+        ResetPassword
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule
+    ],
+    providers: [
+        provideAppInitializer(() => {
+            const auth = inject(AuthService);
+            return auth.initializeAuth();
+        }), provideBrowserGlobalErrorListeners(),
+        provideHttpClient(withInterceptors([authInterceptor]))
+    ],
+    bootstrap: [App]
 })
 export class AppModule { }
